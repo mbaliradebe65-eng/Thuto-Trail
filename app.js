@@ -3,7 +3,7 @@ let S=JSON.parse(localStorage.getItem(KEY)||'null')||{consent:null,marks:{},mt:'
 const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
 const R=n=>'R'+Math.round(n).toLocaleString('en-ZA');
 const cfg=window.THUTO_CONFIG||{};
-const sb=cfg.SUPABASE_URL&&window.supabase?supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY):null;
+let sb=null;try{if(cfg.SUPABASE_URL&&window.supabase)sb=supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY)}catch(e){console.warn('Supabase config invalid, demo mode',e)}
 const feed=[],bc=new BroadcastChannel('thuto');let tab='find',sim=null;
 
 // ---- real-time layer: anonymous events only, never personal data ----
